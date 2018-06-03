@@ -23,8 +23,8 @@ public class Start{
 	static GridBagConstraints gb = new GridBagConstraints();
 	
 	Icon st = new ImageIcon(Start.class.getResource("start.png"));
-	static JButton start = new JButton("¶}©l¹CÀ¸");
-	static JButton end = new JButton("µ²§ô¹CÀ¸");
+	static JButton start = new JButton("é–‹å§‹éŠæˆ²");//è¨­ç½®ä»‹é¢æŒ‰éˆ•
+	static JButton end = new JButton("çµæŸéŠæˆ²");
 	
 	static Game game = new Game();
 
@@ -33,18 +33,18 @@ public class Start{
 		app.setSize(width, height);
 		app.setDefaultCloseOperation(app.EXIT_ON_CLOSE);
 		app.setTitle("123");
-		app.setResizable(false);  //µLªk½Õ¾ã¤j¤p
-		app.setLocationRelativeTo(null);  //¥X²{¦b¿Ã¹õ¥¿¤¤¥¡
+		app.setResizable(false);  //ç„¡æ³•èª¿æ•´å¤§å°
+		app.setLocationRelativeTo(null);  //å‡ºç¾åœ¨è¢å¹•æ­£ä¸­å¤®
 		//app.setLayout(null);
 		
-		start.setContentAreaFilled(false); //³z©ú«ö¶s
+		start.setContentAreaFilled(false); //é€æ˜æŒ‰éˆ•
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				app.getContentPane().removeAll();  //²M°£app©Ò¦³¤¸¥ó
+				app.getContentPane().removeAll();  //æ¸…é™¤appæ‰€æœ‰å…ƒä»¶
 				app.add(game);
 				game.setSize(app.getWidth(), app.getHeight());
 				game.go = 0;
-				app.revalidate();  //app¥[¤J·sªº¤¸¥ó©Î§ïÅÜ¤¸¥ó¤j¤p, »İ­n³qª¾ container °µ½Õ¾ã
+				app.revalidate();  //appåŠ å…¥æ–°çš„å…ƒä»¶æˆ–æ”¹è®Šå…ƒä»¶å¤§å°, éœ€è¦é€šçŸ¥ container åšèª¿æ•´
 				app.repaint();
 			}
 		});
@@ -58,13 +58,13 @@ public class Start{
 		game.exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.go = 0;
-				app.remove(game);
+				app.remove(game);//æ¸…é™¤éŠæˆ²
 				app.add(BP,BorderLayout.SOUTH);
 				app.repaint();
 			}
 		});
 		
-		gb.gridx = 0;
+		gb.gridx = 0;//åˆå§‹è¨­ç½®
 		gb.gridy = 0;
 		gb.gridheight = 1;
 		gb.gridwidth = 1;
@@ -90,6 +90,7 @@ abstract class Draw {
 }
 
 class Board extends Draw {
+	//ç•«å‡ºæ£‹ç›¤
 	int i,j;
 	public Board() {
 		super();
