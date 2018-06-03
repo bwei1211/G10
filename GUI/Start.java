@@ -23,8 +23,8 @@ public class Start{
 	static GridBagConstraints gb = new GridBagConstraints();
 	
 	Icon st = new ImageIcon(Start.class.getResource("start.png"));
-	static JButton start = new JButton("開始遊戲");//設置介面按鈕
-	static JButton end = new JButton("結束遊戲");
+	static JButton start = new JButton("GAME START");//設置介面按鈕
+	static JButton end = new JButton("END THE GAME");
 	
 	static Game game = new Game();
 
