@@ -18,8 +18,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener{
 	Draw step[] = new Draw[1000];
 	Draw ing = null;
 	
-	JButton exit = new JButton("Â÷¶}");
-	JButton back = new JButton("®¬´Ñ");
+	JButton exit = new JButton("EXIT");//éŠæˆ²ä¸­çš„åŠŸèƒ½æŒ‰éˆ•
+	JButton back = new JButton("PULL BACK");
 	
 	public Game() {
 		addMouseListener(this);
@@ -139,6 +139,7 @@ class Gaming {
 		}
 		
 		class DrawChess {
+			//ç‰©ä»¶ æ£‹å­
 			int x,y;
 			Color color;
 			public DrawChess(int x, int y, Color color) {
