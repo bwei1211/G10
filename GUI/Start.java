@@ -12,6 +12,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
@@ -23,28 +24,28 @@ public class Start{
 	static GridBagConstraints gb = new GridBagConstraints();
 	
 	Icon st = new ImageIcon(Start.class.getResource("start.png"));
-	static JButton start = new JButton("GAME START");//è¨­ç½®ä»‹é¢æŒ‰éˆ•
-	static JButton end = new JButton("END THE GAME");
+	static JButton start = new JButton("¶}©l¹CÀ¸");
+	static JButton end = new JButton("µ²§ô¹CÀ¸");
 	
 	static Game game = new Game();
 
 	public static void main(String[] args) {
 		JFrame app = new JFrame();
 		app.setSize(width, height);
-		app.setDefaultCloseOperation(app.EXIT_ON_CLOSE);
+		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		app.setTitle("123");
-		app.setResizable(false);  //ç„¡æ³•èª¿æ•´å¤§å°
-		app.setLocationRelativeTo(null);  //å‡ºç¾åœ¨è¢å¹•æ­£ä¸­å¤®
+		app.setResizable(false);  //µLªk½Õ¾ã¤j¤p
+		app.setLocationRelativeTo(null);  //¥X²{¦b¿Ã¹õ¥¿¤¤¥¡
 		//app.setLayout(null);
 		
-		start.setContentAreaFilled(false); //é€æ˜æŒ‰éˆ•
+		start.setContentAreaFilled(false); //³z©ú«ö¶s
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				app.getContentPane().removeAll();  //æ¸…é™¤appæ‰€æœ‰å…ƒä»¶
+				app.getContentPane().removeAll();  //²M°£app©Ò¦³¤¸¥ó
 				app.add(game);
 				game.setSize(app.getWidth(), app.getHeight());
 				game.go = 0;
-				app.revalidate();  //appåŠ å…¥æ–°çš„å…ƒä»¶æˆ–æ”¹è®Šå…ƒä»¶å¤§å°, éœ€è¦é€šçŸ¥ container åšèª¿æ•´
+				app.revalidate();  //app¥[¤J·sªº¤¸¥ó©Î§ïÅÜ¤¸¥ó¤j¤p, »İ­n³qª¾ container °µ½Õ¾ã
 				app.repaint();
 			}
 		});
@@ -58,13 +59,13 @@ public class Start{
 		game.exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.go = 0;
-				app.remove(game);//æ¸…é™¤éŠæˆ²
+				app.remove(game);
 				app.add(BP,BorderLayout.SOUTH);
 				app.repaint();
 			}
 		});
 		
-		gb.gridx = 0;//åˆå§‹è¨­ç½®
+		gb.gridx = 0;
 		gb.gridy = 0;
 		gb.gridheight = 1;
 		gb.gridwidth = 1;
@@ -83,31 +84,4 @@ public class Start{
 		app.setVisible(true);
 	}
 
-}
-
-abstract class Draw {
-	public abstract void draw(Graphics g);
-}
-
-class Board extends Draw {
-	//ç•«å‡ºæ£‹ç›¤
-	int i,j;
-	public Board() {
-		super();
-	}
-	public void draw(Graphics g) {
-		g.setColor(new Color(255,187,6));
-		g.fillRect(0, 0, 570, 570);
-		g.setColor(Color.BLACK);
-		for(i=0;i<19;i++) {
-			g.drawLine(15+i*30, 15, 15+i*30, 555);
-			g.drawLine(15, 15+i*30, 555, 15+i*30);
-		}
-		for(i=0;i<3;i++) {
-			for(j=0;j<3;j++) {
-				g.fillOval(101+180*i, 101+180*j, 8, 8);
-			}
-		}
-	}
-	
 }
