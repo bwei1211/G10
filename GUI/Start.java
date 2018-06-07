@@ -27,7 +27,7 @@ public class Start{
 	static JButton start = new JButton("開始遊戲");
 	static JButton end = new JButton("結束遊戲");
 	
-	static Game game = new Game();
+	static Game game;// = new Game();
 
 	public static void main(String[] args) {
 		JFrame app = new JFrame();
@@ -42,6 +42,15 @@ public class Start{
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				app.getContentPane().removeAll();  //清除app所有元件
+				game = new Game();
+				game.exit.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						game.go = 0;
+						app.remove(game);
+						app.add(BP,BorderLayout.SOUTH);
+						app.repaint();
+					}
+				});
 				app.add(game);
 				game.setSize(app.getWidth(), app.getHeight());
 				game.go = 0;
@@ -56,14 +65,7 @@ public class Start{
 			}
 		});
 		
-		game.exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				game.go = 0;
-				app.remove(game);
-				app.add(BP,BorderLayout.SOUTH);
-				app.repaint();
-			}
-		});
+		
 		
 		gb.gridx = 0;
 		gb.gridy = 0;

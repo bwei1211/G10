@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Game extends JPanel implements MouseListener,MouseMotionListener, ActionListener{
@@ -32,7 +33,9 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	int stepy[] = new int[400];
 	int chesscount;
 	
-	Locate temp = null;
+	Chess count[];
+	
+	int commandback=0;
 	
 	public Game() {
 		addMouseListener(this);
@@ -49,6 +52,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 				gaming.add(locate[j][i]);
 			}
 		}
+		
+		count = new Chess[400];
 		
 		add(exit);
 		exit.setBounds(670,490,100,80);
@@ -104,18 +109,36 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==back) {
-			locate[stepx[chesscount]][stepy[chesscount]].back();
+			if(chesscount==0){
+				JOptionPane.showMessageDialog(null,"已經是第一步了!","警告",JOptionPane.WARNING_MESSAGE);
+			}
+			//locate[stepx[chesscount]][stepy[chesscount]].back();
+			if(turn==0) {
+				turn = 1;
+				color = Color.WHITE;
+			}
+			else {
+				turn = 0;
+				color = Color.BLACK;
+			}
+			commandback = 1;
+			//count[chesscount] = null;
+			
+			locate[stepx[chesscount]][stepy[chesscount]].draw = 0;
+			locate[stepx[chesscount]][stepy[chesscount]].val = 0;
+			chesscount--;
+			locate[stepx[chesscount]][stepy[chesscount]].repaint();
 		}
 	}
 	
 	class Locate extends JPanel implements MouseListener {
 		int x,y;
-		Color color;
 		Chess temp = null;
-		Chess count[] = new Chess[400];
+		//Chess count[] = new Chess[400];
 		//int chesscount=0;
 		int draw = 0;
 		int val = 0;
+		int index = 0;
 		
 		public Locate(int x, int y) {
 			this.x = x;
@@ -123,13 +146,6 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			
 			this.setBackground(new Color(255,187,6));
 			
-			addMouseListener(this);
-		}
-
-		public Locate(int x, int y, Color color) {
-			this.x = x;
-			this.y = y;
-			this.color = color;
 			addMouseListener(this);
 		}
 
@@ -151,13 +167,25 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 				g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 1.0f));
 			}
 			/*for(i=0;i<chesscount;i++) {
-				if(count[i].back==0) {
-					count[i].draw(g);
-				}
+				count[i].draw(g);
 			}*/
 			if(this.draw==1) {
-				this.drawChess(g);
+				count[index].draw(g);
 			}
+			if(commandback==1) {
+				commandback = 0;
+				count[index] =  null;
+			}
+			/*if(this.draw==1) {
+				count[chesscount].draw(g);
+				if(turn==0) {
+					turn = 1;
+				}
+				else {
+					turn = 0;
+				}
+				chesscount++;
+			}*/
 		}
 		
 		public void mouseClicked(MouseEvent e) {
@@ -166,7 +194,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 		
 		public void mouseEntered(MouseEvent e) {
 			if(this.val==0) {
-				temp = new Chess(x,y);
+				temp = new Chess(color);
+				this.add(temp);
 				repaint();
 			}
 		}
@@ -177,38 +206,39 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 		}
 		
 		public void mousePressed(MouseEvent e) {
-			if(turn==0) {
-				this.val = 1;
-				color = Color.BLACK;
+			if(this.val==0){
+				if(turn==0) {
+					this.val = 1;
+				}
+				else {
+					this.val = -1;
+				}
+				//count[chesscount++] = new Chess(x, y, color);
+				//locate[x][y] = new Chess(x, y, color);
+				index = chesscount;
+				count[index] = new Chess(color);
+				this.draw = 1;
+				//lastx = x;
+				//lasty = y;x;
+				stepy[chesscount] = 
+				stepx[chesscount] = y;
+				temp = null;
+				this.add(count[index]);
+				repaint();
+				if(turn==0) {
+					turn = 1;
+					color = Color.WHITE;
+				}
+				else {
+					turn = 0;
+					color = Color.BLACK;
+				}
+				chesscount++;
 			}
-			else {
-				this.val = -1;
-				color = Color.WHITE;
-			}
-			//count[chesscount++] = new Chess(x, y, color);
-			//locate[x][y] = new Chess(x, y, color);
-			this.draw = 1;
-			//lastx = x;
-			//lasty = y;
-			stepx[chesscount] = x;
-			stepy[chesscount++] = y;
-			temp = null;
-			repaint();
 		}
 		
 		public void mouseReleased(MouseEvent e) {
 			
-		}
-		
-		public void drawChess(Graphics g) {
-			if(turn==0) {
-				turn = 1;
-			}
-			else {
-				turn = 0;
-			}
-			g.setColor(color);
-			g.fillOval(4, 4, 22, 22);
 		}
 		
 		public void drawback(Graphics g) {
@@ -243,36 +273,36 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 		public void back() {
 			if(turn==0) {
 				turn = 1;
+				color = Color.WHITE;
 			}
 			else {
 				turn = 0;
+				color = Color.BLACK;
 			}
 			//count[chesscount].back = 1;
+			count[chesscount] = null;
 			this.draw = 0;
+			this.val = 0;
 			chesscount--;
 			repaint();
 		}
 	}
 	
-	class Chess extends Locate implements MouseListener {
+	class Chess extends JPanel {
 		Color color;
-		public Chess(int x, int y, Color color) {
-			super(x, y);
-			this.color = color;
-		}
 		
-		public Chess(int x, int y) {
-			super(x, y);
+		public Chess(Color color){
+			this.color = color;
 		}
 
 		public void draw(Graphics g) {
-			//g.setColor(color);
-			if(turn==0) {
+			g.setColor(color);
+			/*if(turn==0) {
 				g.setColor(Color.BLACK);
 			}
 			else {
 				g.setColor(Color.WHITE);
-			}
+			}*/
 			g.fillOval(4, 4, 22, 22);
 		}
 	}
