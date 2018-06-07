@@ -1,8 +1,10 @@
 package GUI;
 
 import java.awt.AlphaComposite;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -13,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -24,18 +27,25 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	JButton exit = new JButton("離開");
 	JButton back = new JButton("悔棋");
 	
-	int loc[][] = new int[19][19];
+	//int loc[][] = new int[19][19];
 	Locate locate[][] = new Locate[19][19];
 	JPanel gaming = new JPanel();
 	
 	int lastx,lasty;
-	int stepx[] = new int[400];
-	int stepy[] = new int[400];
+	//int stepx[] = new int[400];
+	//int stepy[] = new int[400];
 	int chesscount;
 	
 	Chess count[];
 	
-	int commandback=0;
+	//int commandback=0;
+	
+	int over=0;
+	
+	JLabel win_message = new JLabel();
+	JPanel winpan = new JPanel();
+	
+	Font winfont = new Font(Font.SANS_SERIF, Font.PLAIN, 40); 
 	
 	public Game() {
 		addMouseListener(this);
@@ -55,11 +65,18 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 		
 		count = new Chess[400];
 		
+		add(winpan);
+		winpan.add(win_message,BorderLayout.EAST);
+		winpan.setBounds(570, 0, 200, 65);
+		winpan.setBackground(Color.LIGHT_GRAY);
+		//win_message.setText("win");
+		win_message.setFont(winfont);
+		
 		add(exit);
-		exit.setBounds(670,490,100,80);
-		add(back);
+		exit.setBounds(570,490,200,80);
+		/*add(back);
 		back.addActionListener(this);
-		back.setBounds(570,490,100,80);
+		back.setBounds(570,490,100,80);*/
 		
 		
 		this.add(gaming);
@@ -108,7 +125,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==back) {
+		/*if(e.getSource()==back) {
 			if(chesscount==0){
 				JOptionPane.showMessageDialog(null,"已經是第一步了!","警告",JOptionPane.WARNING_MESSAGE);
 			}
@@ -127,11 +144,11 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			locate[stepx[chesscount]][stepy[chesscount]].draw = 0;
 			locate[stepx[chesscount]][stepy[chesscount]].val = 0;
 			chesscount--;
-			locate[stepx[chesscount]][stepy[chesscount]].repaint();
-		}
+			repaint();
+		}*/
 	}
 	
-	class Locate extends JPanel implements MouseListener {
+	public class Locate extends JPanel implements MouseListener {
 		int x,y;
 		Chess temp = null;
 		//Chess count[] = new Chess[400];
@@ -145,6 +162,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			this.y = y;
 			
 			this.setBackground(new Color(255,187,6));
+			
 			
 			addMouseListener(this);
 		}
@@ -172,10 +190,10 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			if(this.draw==1) {
 				count[index].draw(g);
 			}
-			if(commandback==1) {
+			/*if(commandback==1) {
 				commandback = 0;
 				count[index] =  null;
-			}
+			}*/
 			/*if(this.draw==1) {
 				count[chesscount].draw(g);
 				if(turn==0) {
@@ -193,7 +211,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 		}
 		
 		public void mouseEntered(MouseEvent e) {
-			if(this.val==0) {
+			if(this.val==0&&over==0) {
 				temp = new Chess(color);
 				this.add(temp);
 				repaint();
@@ -206,7 +224,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 		}
 		
 		public void mousePressed(MouseEvent e) {
-			if(this.val==0){
+			if(this.val==0&&over==0){
 				if(turn==0) {
 					this.val = 1;
 				}
@@ -219,12 +237,13 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 				count[index] = new Chess(color);
 				this.draw = 1;
 				//lastx = x;
-				//lasty = y;x;
-				stepy[chesscount] = 
-				stepx[chesscount] = y;
+				//lasty = y;
+				//stepx[chesscount] = x;
+				//stepy[chesscount] = y;
 				temp = null;
-				this.add(count[index]);
+				//this.add(count[index]);
 				repaint();
+				CheckGame(this.x,this.y);
 				if(turn==0) {
 					turn = 1;
 					color = Color.WHITE;
@@ -305,6 +324,130 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			}*/
 			g.fillOval(4, 4, 22, 22);
 		}
+	}
+
+	public void CheckGame(int x, int y) {
+		int win;
+		if(turn==0) { //val = 1
+			for(i=0;i<4;i++) {
+				win = Check(x,y,1,i);
+				if(win>=5) {
+					JOptionPane.showMessageDialog(null,"黑子勝利","訊息",JOptionPane.INFORMATION_MESSAGE);
+					over = 1;
+					break;
+				}
+			}
+		}
+		else { // val = -1
+			for(i=0;i<4;i++) {
+				win = Check(x,y,-1,i);
+				if(win>=5) {
+					JOptionPane.showMessageDialog(null,"白子勝利","訊息",JOptionPane.INFORMATION_MESSAGE);
+					over = 1;
+					break;
+				}
+			}
+		}
+	}
+	
+	public int Check(int x, int y, int val, int choose) {
+		int count = -1;
+		int x2 = x;
+		int y2 = y;
+		
+		switch(choose) {
+		
+		case 0:
+			while(x+1<20&&y+1<20) {
+				if(locate[x][y].val==val) {
+					count++;
+					x++;
+					y++;
+				}
+				else {
+					break;
+				}
+			}
+			while(x2-1>-1&&y2-1>-1) {
+				if(locate[x2][y2].val==val) {
+					count++;
+					x2--;
+					y2--;
+				}
+				else {
+					break;
+				}
+			}
+			break;
+			
+		case 1:
+			while(x+1<20) {
+				if(locate[x][y].val==val) {
+					count++;
+					x++;
+				}
+				else {
+					break;
+				}
+			}
+			while(x2-1>-1) {
+				if(locate[x2][y2].val==val) {
+					count++;
+					x2--;
+				}
+				else {
+					break;
+				}
+			}
+			break;
+			
+		case 2:
+			while(x+1<20&&y-1>-1) {
+				if(locate[x][y].val==val) {
+					count++;
+					x++;
+					y--;
+				}
+				else {
+					break;
+				}
+			}
+			while(x2-1>-1&&y2+1<20) {
+				if(locate[x2][y2].val==val) {
+					count++;
+					x2--;
+					y2++;
+				}
+				else {
+					break;
+				}
+			}
+			break;
+			
+		case 3:
+			while(y+1<20) {
+				if(locate[x][y].val==val) {
+					count++;
+					y++;
+				}
+				else {
+					break;
+				}
+			}
+			while(y2-1>-1) {
+				if(locate[x2][y2].val==val) {
+					count++;
+					y2--;
+				}
+				else {
+					break;
+				}
+			}
+			break;
+			
+		}
+		
+		return count;
 	}
 	
 }
