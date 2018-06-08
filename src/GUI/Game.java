@@ -8,12 +8,14 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,7 +47,16 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	JLabel win_message = new JLabel();
 	JPanel winpan = new JPanel();
 	
-	Font winfont = new Font(Font.SANS_SERIF, Font.PLAIN, 40); 
+	Font winfont = new Font(Font.SANS_SERIF, Font.PLAIN, 40);
+	
+	JPanel p1 = new JPanel();
+	JPanel p2 = new JPanel();
+	ImageIcon chessgod = new ImageIcon("resources/image/chessgod.png");
+	ImageIcon alphago = new ImageIcon("resources/image/alphago.jpg");
+	JLabel player1 = new JLabel(chessgod);
+	JLabel player2;
+	
+	Image play2;
 	
 	public Game() {
 		addMouseListener(this);
@@ -64,6 +75,19 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 		}
 		
 		count = new Chess[400];
+		
+		p1.setBounds(570, 65, 200, 213);
+		p2.setBounds(570, 277, 200, 213);
+		player1.setBounds(575, 70, 190, 203);
+		play2 = alphago.getImage();
+		play2 = play2.getScaledInstance(200, 203, java.awt.Image.SCALE_SMOOTH);
+		player2 = new JLabel(new ImageIcon(play2));
+		player2.setBounds(570, 282, 200, 203);
+		p1.add(player1);
+		p2.add(player2);
+		add(p1);
+		add(p2);
+		p1.setBackground(Color.RED);
 		
 		add(winpan);
 		winpan.add(win_message,BorderLayout.EAST);
@@ -247,10 +271,14 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 				if(turn==0) {
 					turn = 1;
 					color = Color.WHITE;
+					p1.setBackground(Color.WHITE);
+					p2.setBackground(Color.RED);
 				}
 				else {
 					turn = 0;
 					color = Color.BLACK;
+					p2.setBackground(Color.WHITE);
+					p1.setBackground(Color.RED);
 				}
 				chesscount++;
 			}

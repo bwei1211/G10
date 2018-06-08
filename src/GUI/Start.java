@@ -23,32 +23,32 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class Start {
+public class Start extends Thread {
 	int i;
-	static int width = 777,height = 604;
+	int width = 777,height = 604;
 	
-	static JPanel BP = new JPanel(new GridBagLayout());
-	static GridBagConstraints gb = new GridBagConstraints();
+	JPanel BP = new JPanel(new GridBagLayout());
+	GridBagConstraints gb = new GridBagConstraints();
 	
-	Icon st = new ImageIcon(Start.class.getResource("start.png"));
+	//Icon st = new ImageIcon(Start.class.getResource("start.png"));
 	//static JButton start = new JButton("開始遊戲");
-	static JButton end = new JButton("結束遊戲");
+	JButton end = new JButton("結束遊戲");
 	
-	static Game game;// = new Game();
+	Game game;// = new Game();
 	
-	static BufferedImage bg;
-	static ImageIcon background = new ImageIcon("resources/image/background.png");
-	static JLabel BG;
-	static JPanel BB = new JPanel();
+	BufferedImage bg;
+	ImageIcon background = new ImageIcon("resources/image/background.png");
+	JLabel BG;
+	JPanel BB = new JPanel();
 	
-	static JLabel start;
-	static ImageIcon Bstart = new ImageIcon("resources/image/start2.png");
-	static JLabel option;
-	static ImageIcon Boption = new ImageIcon("resources/image/option2.png");
+	JLabel start;
+	ImageIcon Bstart = new ImageIcon("resources/image/start2.png");
+	JLabel option;
+	ImageIcon Boption = new ImageIcon("resources/image/option2.png");
 	
-	static Image IMG,IMG2,IMG3;
+	Image IMG,IMG2,IMG3;
 	
-	public static void main(String[] args) {
+	public void run() {
 		JFrame app = new JFrame();
 		app.setSize(width, height);
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -184,7 +184,8 @@ public class Start {
 			public void mouseReleased(MouseEvent e) {
 			}
 		});
-				BB.add(Pstart);
+		
+		BB.add(Pstart);
 		BB.add(Poption);
 		app.add(BB);
 		start.setVisible(false);
