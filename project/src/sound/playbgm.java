@@ -25,7 +25,7 @@ public class playbgm extends Thread {
 		try {
 			BGM.loop(MAX_PRIORITY);
 			FloatControl gainControl =  (FloatControl) BGM.getControl(FloatControl.Type.MASTER_GAIN);
-				gainControl.setValue(-10.0f); //�վ㭵�q6.0206 ~ -80
+				gainControl.setValue(-10.0f); //音量6.0206 ~ -80
 			BGM.start();
 		} catch (Exception e) {
 			System.out.println(e);

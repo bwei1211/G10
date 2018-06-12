@@ -5,7 +5,7 @@ public class main {
 
 	public static void main(String[] args) {
 		Start pro1 = new Start();
-		pro1.setPriority(1);  //Àu¥ýÅv ¼Æ¦r¶V¤j¶V°ª
+		pro1.setPriority(1);  //å„ªå…ˆæ¬Šè¨­å®š
 		playbgm pro2 = new playbgm();
 		pro2.setPriority(2);
 		pro1.start();

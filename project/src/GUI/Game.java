@@ -28,8 +28,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	int i,j;
 	Color color = Color.BLACK;
 	
-	JButton exit = new JButton("���}");
-	JButton back = new JButton("����");
+	JButton exit = new JButton("離開");
+	//JButton back = new JButton("悔棋");
 	
 	//int loc[][] = new int[19][19];
 	Locate locate[][] = new Locate[19][19];
@@ -61,6 +61,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	Image play2;
 	
 	String name1, name2;
+	
+	Savedata sd;
 	
 	public Game(String name1, String name2) {
 		addMouseListener(this);
@@ -121,9 +123,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	}
 	
 	public void paintComponent(Graphics g){
-		if(go==0) {
-			
-		}
+		
 	}
 	
 	public void mousePressed(MouseEvent e) {
@@ -157,7 +157,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	public void actionPerformed(ActionEvent e) {
 		/*if(e.getSource()==back) {
 			if(chesscount==0){
-				JOptionPane.showMessageDialog(null,"�w�g�O�Ĥ@�B�F!","ĵ�i",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null,"已經是第一步了",JOptionPane.WARNING_MESSAGE);
 			}
 			//locate[stepx[chesscount]][stepy[chesscount]].back();
 			if(turn==0) {
@@ -210,7 +210,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			}
 			if(temp!=null) {
 				Graphics2D g2d = (Graphics2D) g;
-				g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.5f));  //�]�m�z����
+				g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.5f));  //graphics透明度
 				temp.draw(g);
 				g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 1.0f));
 			}
@@ -366,9 +366,9 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			for(i=0;i<4;i++) {
 				win = Check(x,y,1,i);
 				if(win>=5) {
-					JOptionPane.showMessageDialog(null,"�¤l�ӧQ","�T��",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,"黑子勝利","訊息",JOptionPane.INFORMATION_MESSAGE);
 					over = 1;
-					Savedata sd = new Savedata(name1, name2);
+					sd = new Savedata(name1, name2);
 					break;
 				}
 			}
@@ -377,8 +377,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			for(i=0;i<4;i++) {
 				win = Check(x,y,-1,i);
 				if(win>=5) {
-					JOptionPane.showMessageDialog(null,"�դl�ӧQ","�T��",JOptionPane.INFORMATION_MESSAGE);
-					Savedata sd = new Savedata(name2, name1);
+					JOptionPane.showMessageDialog(null,"白子勝利","訊息",JOptionPane.INFORMATION_MESSAGE);
+					sd = new Savedata(name2, name1);
 					over = 1;
 					break;
 				}

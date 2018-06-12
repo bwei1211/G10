@@ -33,7 +33,7 @@ public class Start extends Thread {
 	GridBagConstraints gb = new GridBagConstraints();
 	
 	//Icon st = new ImageIcon(Start.class.getResource("start.png"));
-	//static JButton start = new JButton("�}�l�C��");
+	//static JButton start = new JButton("開始遊戲");
 	JButton end = new JButton("�����C��");
 	
 	Game game;// = new Game();
@@ -61,15 +61,15 @@ public class Start extends Thread {
 		app.setSize(width, height);
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		app.setTitle("123");
-		app.setResizable(false);  //�L�k�վ�j�p
-		app.setLocationRelativeTo(null);  //�X�{�b�ù�������
+		app.setResizable(false);  //關閉調整大小
+		app.setLocationRelativeTo(null);  //將視窗設置到正中央
 		app.setLayout(null);
 		
 		
-		//start.setContentAreaFilled(false); //�z�����s
+		//start.setContentAreaFilled(false); //按鈕設置成透明
 		/*start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				app.getContentPane().removeAll();  //�M��app�Ҧ�����
+				app.getContentPane().removeAll();  //移除app視窗的所有元件
 				game = new Game();
 				game.exit.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -82,7 +82,7 @@ public class Start extends Thread {
 				app.add(game);
 				game.setSize(app.getWidth(), app.getHeight());
 				game.go = 0;
-				app.revalidate();  //app�[�J�s������Χ��ܤ���j�p, �ݭn�q�� container ���վ�
+				app.revalidate();  //對於app加入新的元件或改變元件大小去做調整
 				app.repaint();
 			}
 		});*/
@@ -117,7 +117,7 @@ public class Start extends Thread {
 		BB.setBounds(0, 0, width, height);
 		
 		Image img = background.getImage();
-		IMG = img.getScaledInstance(width,height,java.awt.Image.SCALE_SMOOTH); //�]�w�Ϥ��j�p�������j�p
+		IMG = img.getScaledInstance(width,height,java.awt.Image.SCALE_SMOOTH); //將圖片設置為想要的大小
 		BG = new JLabel(new ImageIcon(IMG));
 		BG.setBounds(0, 0, width, height);
 		BG.setOpaque(false);
@@ -197,11 +197,15 @@ public class Start extends Thread {
 					public void mouseExited(MouseEvent e) {
 					}
 					public void mousePressed(MouseEvent e) {
-						app.remove(op);
-						app.add(BB);
-						option.setVisible(false);
-						app.revalidate();
-						app.repaint();
+						if(op.player1==""||op.player2=="") {
+						}
+						else {
+							app.remove(op);
+							app.add(BB);
+							option.setVisible(false);
+							app.revalidate();
+							app.repaint();
+						}
 					}
 					public void mouseReleased(MouseEvent e) {
 					}

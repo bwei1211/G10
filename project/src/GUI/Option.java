@@ -45,7 +45,7 @@ public class Option extends JPanel {
 		
 		p1.setBounds(300, 50, 300, 80);
 		p1.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
-		p1.setHorizontalAlignment(JTextField.RIGHT);  //��r�a�k
+		p1.setHorizontalAlignment(JTextField.RIGHT);  //文字靠右
 		p1.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent arg0) {
 			}
@@ -59,7 +59,7 @@ public class Option extends JPanel {
 		
 		p2.setBounds(300, 150, 300, 80);
 		p2.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
-		p2.setHorizontalAlignment(JTextField.RIGHT);  //��r�a�k
+		p2.setHorizontalAlignment(JTextField.RIGHT);
 		p2.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent arg0) {
 			}

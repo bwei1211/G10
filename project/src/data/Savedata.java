@@ -39,7 +39,6 @@ public class Savedata {
 			if(rs.getInt(1)==0){
 				getID = stmt.executeQuery("select * from players_table order by playerID desc limit 1;");
 				getID.next();
-				System.out.print(getID);
 				
 				Pstmt = conn.prepareStatement(
 						"INSERT INTO players_table (playerID, playername) VALUES (?,?);");
@@ -62,12 +61,11 @@ public class Savedata {
 				
 				getData = stmt.executeQuery("select win, lose from game_data where playerID = "+getID.getInt(1)+" limit 1");
 				getData.next();
-				System.out.print(getData);
 				
 				Pstmt = conn.prepareStatement("UPDATE game_data SET win = ?, lose = ?, winrate = ? WHERE playerID = ?");
-				Pstmt.setInt(1,getData.getInt(1));
+				Pstmt.setInt(1,getData.getInt(1)+1);
 				Pstmt.setInt(2,getData.getInt(2));
-				Pstmt.setFloat(3,getData.getInt(1)/getData.getInt(2));
+				Pstmt.setFloat(3,(float) ((getData.getInt(1)+1)/(float) (getData.getInt(1)+1+getData.getInt(2))));
 				Pstmt.setInt(4,tempID);
 				Pstmt.execute();
 			}
@@ -78,7 +76,6 @@ public class Savedata {
 			if(rs.getInt(1)==0){
 				getID = stmt.executeQuery("select * from players_table order by playerID desc limit 1;");
 				getID.next();
-				System.out.print(getID);
 				
 				Pstmt = conn.prepareStatement(
 						"INSERT INTO players_table (playerID, playername) VALUES (?,?);");
@@ -101,12 +98,11 @@ public class Savedata {
 				
 				getData = stmt.executeQuery("select win, lose from game_data where playerID = "+getID.getInt(1)+" limit 1");
 				getData.next();
-				System.out.print(getData);
 				
 				Pstmt = conn.prepareStatement("UPDATE game_data SET win = ?, lose = ?, winrate = ? WHERE playerID = ?");
 				Pstmt.setInt(1,getData.getInt(1));
-				Pstmt.setInt(2,getData.getInt(2));
-				Pstmt.setFloat(3,getData.getInt(1)/getData.getInt(2));
+				Pstmt.setInt(2,getData.getInt(2)+1);
+				Pstmt.setFloat(3,(float) (getData.getInt(1)/(float) (getData.getInt(1)+getData.getInt(2)+1)));
 				Pstmt.setInt(4,tempID);
 				Pstmt.execute();
 			}
