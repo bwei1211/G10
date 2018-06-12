@@ -22,6 +22,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import data.Rank;
+
 
 public class Start extends Thread {
 	int i;
@@ -47,6 +49,9 @@ public class Start extends Thread {
 	ImageIcon Boption = new ImageIcon("resources/image/option2.png");
 	
 	Image IMG,IMG2,IMG3;
+	
+	JLabel rk = new JLabel();
+	Rank rank = new Rank();
 	
 	public void run() {
 		JFrame app = new JFrame();
@@ -173,11 +178,11 @@ public class Start extends Thread {
 			}
 			public void mouseEntered(MouseEvent e) {
 				option.setVisible(true);
-				Poption.repaint();
+				//Poption.repaint();
 			}
 			public void mouseExited(MouseEvent e) {
 				option.setVisible(false);
-				Poption.repaint();
+				//Poption.repaint();
 			}
 			public void mousePressed(MouseEvent e) {
 			}
@@ -190,6 +195,40 @@ public class Start extends Thread {
 		app.add(BB);
 		start.setVisible(false);
 		option.setVisible(false);
+		
+		rk.setBounds(5, 515, 50, 50);
+		rk.setBackground(Color.RED);
+		rk.setOpaque(true);
+		JPanel R = new JPanel();
+		R.setLayout(null);
+		R.setBounds(60, 385, 200, 180);
+		R.setBackground(Color.BLUE);
+		R.setOpaque(true);
+		R.setVisible(false);
+		rk.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+			}
+			public void mouseEntered(MouseEvent e) {
+				rank = new Rank();
+				rank.setBounds(0, 0, 200, 180);
+				R.add(rank);
+				R.setVisible(true);
+			}
+			public void mouseExited(MouseEvent e) {
+				R.setVisible(false);
+				R.remove(rank);
+				rank = null;
+			}
+			public void mousePressed(MouseEvent e) {
+			}
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+		BB.add(rk);
+		//BB.add(rank);
+		//rank.setSize(200, 150);
+		BB.add(R);
+		
 		app.setVisible(true);
 	}
 

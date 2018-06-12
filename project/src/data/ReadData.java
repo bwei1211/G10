@@ -20,7 +20,7 @@ public class ReadData {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 		} catch (Exception ex) {
-			// handle the error
+			System.out.println(ex);
 		}
 
 		Connection conn = null;
