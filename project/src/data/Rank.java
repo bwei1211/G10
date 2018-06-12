@@ -116,7 +116,7 @@ public class Rank extends JPanel {
 				rank4[i].setText(str);
 				rank4[i].setForeground(Color.RED);
 				
-				str=String.format("%.2f", rs.getFloat("winrate"));
+				str=String.format("%.0f", rs.getFloat("winrate")*100)+"%";
 				rank5[i].setText(str);
 				rank5[i].setForeground(Color.WHITE);
 				

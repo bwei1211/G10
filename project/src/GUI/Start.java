@@ -33,8 +33,8 @@ public class Start extends Thread {
 	GridBagConstraints gb = new GridBagConstraints();
 	
 	//Icon st = new ImageIcon(Start.class.getResource("start.png"));
-	//static JButton start = new JButton("¶}©l¹CÀ¸");
-	JButton end = new JButton("µ²§ô¹CÀ¸");
+	//static JButton start = new JButton("ï¿½}ï¿½lï¿½Cï¿½ï¿½");
+	JButton end = new JButton("ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½");
 	
 	Game game;// = new Game();
 	
@@ -50,23 +50,26 @@ public class Start extends Thread {
 	
 	Image IMG,IMG2,IMG3;
 	
-	JLabel rk = new JLabel();
+	JLabel rk;
+	ImageIcon Brank = new ImageIcon("resources/image/rank.png");
 	Rank rank = new Rank();
+	
+	Option op = new Option();
 	
 	public void run() {
 		JFrame app = new JFrame();
 		app.setSize(width, height);
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		app.setTitle("123");
-		app.setResizable(false);  //µLªk½Õ¾ã¤j¤p
-		app.setLocationRelativeTo(null);  //¥X²{¦b¿Ã¹õ¥¿¤¤¥¡
+		app.setResizable(false);  //ï¿½Lï¿½kï¿½Õ¾ï¿½jï¿½p
+		app.setLocationRelativeTo(null);  //ï¿½Xï¿½{ï¿½bï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		app.setLayout(null);
 		
 		
-		//start.setContentAreaFilled(false); //³z©ú«ö¶s
+		//start.setContentAreaFilled(false); //ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½s
 		/*start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				app.getContentPane().removeAll();  //²M°£app©Ò¦³¤¸¥ó
+				app.getContentPane().removeAll();  //ï¿½Mï¿½ï¿½appï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½
 				game = new Game();
 				game.exit.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -79,7 +82,7 @@ public class Start extends Thread {
 				app.add(game);
 				game.setSize(app.getWidth(), app.getHeight());
 				game.go = 0;
-				app.revalidate();  //app¥[¤J·sªº¤¸¥ó©Î§ïÅÜ¤¸¥ó¤j¤p, »Ý­n³qª¾ container °µ½Õ¾ã
+				app.revalidate();  //appï¿½[ï¿½Jï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Ü¤ï¿½ï¿½ï¿½jï¿½p, ï¿½Ý­nï¿½qï¿½ï¿½ container ï¿½ï¿½ï¿½Õ¾ï¿½
 				app.repaint();
 			}
 		});*/
@@ -114,7 +117,7 @@ public class Start extends Thread {
 		BB.setBounds(0, 0, width, height);
 		
 		Image img = background.getImage();
-		IMG = img.getScaledInstance(width,height,java.awt.Image.SCALE_SMOOTH); //³]©w¹Ï¤ù¤j¤p¬°µøµ¡¤j¤p
+		IMG = img.getScaledInstance(width,height,java.awt.Image.SCALE_SMOOTH); //ï¿½]ï¿½wï¿½Ï¤ï¿½ï¿½jï¿½pï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½p
 		BG = new JLabel(new ImageIcon(IMG));
 		BG.setBounds(0, 0, width, height);
 		BG.setOpaque(false);
@@ -143,7 +146,7 @@ public class Start extends Thread {
 			}
 			public void mousePressed(MouseEvent e) {
 				app.getContentPane().removeAll();
-				game = new Game();
+				game = new Game(op.player1, op.player2);
 				game.exit.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						game.go = 0;
@@ -185,6 +188,28 @@ public class Start extends Thread {
 				//Poption.repaint();
 			}
 			public void mousePressed(MouseEvent e) {
+				app.getContentPane().removeAll();
+				op.exit.addMouseListener(new MouseListener() {
+					public void mouseClicked(MouseEvent e) {
+					}
+					public void mouseEntered(MouseEvent e) {
+					}
+					public void mouseExited(MouseEvent e) {
+					}
+					public void mousePressed(MouseEvent e) {
+						app.remove(op);
+						app.add(BB);
+						option.setVisible(false);
+						app.revalidate();
+						app.repaint();
+					}
+					public void mouseReleased(MouseEvent e) {
+					}
+				});
+				app.add(op);
+				op.setSize(app.getWidth(), app.getHeight());
+				app.revalidate();
+				app.repaint();
 			}
 			public void mouseReleased(MouseEvent e) {
 			}
@@ -196,13 +221,15 @@ public class Start extends Thread {
 		start.setVisible(false);
 		option.setVisible(false);
 		
+		Image img4 = Brank.getImage();
+		rk = new JLabel(new ImageIcon(img4.getScaledInstance(50,50,java.awt.Image.SCALE_SMOOTH)));
 		rk.setBounds(5, 515, 50, 50);
-		rk.setBackground(Color.RED);
+		//rk.setBackground(Color.RED);
 		rk.setOpaque(true);
 		JPanel R = new JPanel();
 		R.setLayout(null);
 		R.setBounds(60, 385, 200, 180);
-		R.setBackground(Color.BLUE);
+		//R.setBackground(Color.BLUE);
 		R.setOpaque(true);
 		R.setVisible(false);
 		rk.addMouseListener(new MouseListener() {

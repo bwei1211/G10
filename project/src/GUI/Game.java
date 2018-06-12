@@ -21,13 +21,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import data.Savedata;
+
 public class Game extends JPanel implements MouseListener,MouseMotionListener, ActionListener{
 	int x,y,go=0,turn=0;
 	int i,j;
 	Color color = Color.BLACK;
 	
-	JButton exit = new JButton("Â÷¶}");
-	JButton back = new JButton("®¬´Ñ");
+	JButton exit = new JButton("ï¿½ï¿½ï¿½}");
+	JButton back = new JButton("ï¿½ï¿½ï¿½ï¿½");
 	
 	//int loc[][] = new int[19][19];
 	Locate locate[][] = new Locate[19][19];
@@ -58,7 +60,9 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	
 	Image play2;
 	
-	public Game() {
+	String name1, name2;
+	
+	public Game(String name1, String name2) {
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		
@@ -102,6 +106,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 		back.addActionListener(this);
 		back.setBounds(570,490,100,80);*/
 		
+		this.name1 = name1;
+		this.name2 = name2;
 		
 		this.add(gaming);
 		this.revalidate();
@@ -151,7 +157,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	public void actionPerformed(ActionEvent e) {
 		/*if(e.getSource()==back) {
 			if(chesscount==0){
-				JOptionPane.showMessageDialog(null,"¤w¸g¬O²Ä¤@¨B¤F!","Äµ§i",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null,"ï¿½wï¿½gï¿½Oï¿½Ä¤@ï¿½Bï¿½F!","Äµï¿½i",JOptionPane.WARNING_MESSAGE);
 			}
 			//locate[stepx[chesscount]][stepy[chesscount]].back();
 			if(turn==0) {
@@ -204,7 +210,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			}
 			if(temp!=null) {
 				Graphics2D g2d = (Graphics2D) g;
-				g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.5f));  //³]¸m³z©ú«×
+				g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.5f));  //ï¿½]ï¿½mï¿½zï¿½ï¿½ï¿½ï¿½
 				temp.draw(g);
 				g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 1.0f));
 			}
@@ -360,8 +366,9 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			for(i=0;i<4;i++) {
 				win = Check(x,y,1,i);
 				if(win>=5) {
-					JOptionPane.showMessageDialog(null,"¶Â¤l³Ó§Q","°T®§",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,"ï¿½Â¤lï¿½Ó§Q","ï¿½Tï¿½ï¿½",JOptionPane.INFORMATION_MESSAGE);
 					over = 1;
+					Savedata sd = new Savedata(name1, name2);
 					break;
 				}
 			}
@@ -370,7 +377,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			for(i=0;i<4;i++) {
 				win = Check(x,y,-1,i);
 				if(win>=5) {
-					JOptionPane.showMessageDialog(null,"¥Õ¤l³Ó§Q","°T®§",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,"ï¿½Õ¤lï¿½Ó§Q","ï¿½Tï¿½ï¿½",JOptionPane.INFORMATION_MESSAGE);
+					Savedata sd = new Savedata(name2, name1);
 					over = 1;
 					break;
 				}
