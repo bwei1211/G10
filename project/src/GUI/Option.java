@@ -13,19 +13,31 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import sound.PlayBGM;
+
 public class Option extends JPanel {
 	
-	ImageIcon X = new ImageIcon("resources/image/X.png");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	ImageIcon X = new ImageIcon(getClass().getResource("/images/X.png"));
 	JLabel exit;
 	
-	String player1 = "playerone";
-	String player2 = "playertwo";
+	String player1 = "player1";
+	String player2 = "player2";
 	
-	JTextField p1 = new JTextField(player1,10);
-	JTextField p2 = new JTextField(player2,10);
+	JTextField p1 = new JTextField("player1",10);
+	JTextField p2 = new JTextField("player2",10);
 	
-	ImageIcon bgm1 = new ImageIcon("resources/image/check1.png");
-	ImageIcon bgm2 = new ImageIcon("resources/image/check2.png");
+	JLabel P1 = new JLabel();
+	JLabel P2 = new JLabel();
+	
+	Font f = new Font(Font.SERIF, Font.PLAIN, 50);
+	Font f2 = new Font(Font.SANS_SERIF, Font.ROMAN_BASELINE, 70);
+	
+	ImageIcon bgm1 = new ImageIcon(getClass().getResource("/images/check1.png"));
+	ImageIcon bgm2 = new ImageIcon(getClass().getResource("/images/check2.png"));
 	JLabel BGM;
 	JLabel BGM2;
 	JLabel BGMtext = new JLabel();
@@ -52,7 +64,7 @@ public class Option extends JPanel {
 			public void keyReleased(KeyEvent arg0) {
 			}
 			public void keyTyped(KeyEvent arg0) {
-				player1 = p1.getText();
+				//player1 = p1.getText();
 			}
 		});
 		add(p1);
@@ -66,7 +78,7 @@ public class Option extends JPanel {
 			public void keyReleased(KeyEvent arg0) {
 			}
 			public void keyTyped(KeyEvent arg0) {
-				player2 = p2.getText();
+				//player2 = p2.getText();
 			}
 		});
 		add(p2);
@@ -107,16 +119,35 @@ public class Option extends JPanel {
 			}
 		});
 		BGM2.setBounds(50, 350, 100, 100);
+		
+		P1.setFont(f);
+		P2.setFont(f);
+		P1.setText("Player1 :");
+		P2.setText("Player2 :");
+		P1.setForeground(Color.RED);
+		P2.setForeground(Color.BLUE);
+		P1.setBounds(75, 50, 200, 80);
+		P2.setBounds(75, 150, 200, 80);
+		add(P1);
+		add(P2);
+		
+		BGMtext.setFont(f);
+		BGMtext.setText("關閉音樂");
+		BGMtext.setForeground(Color.YELLOW);
+		BGMtext.setBounds(170, 340, 200, 100);
+		add(BGMtext);
 	}
 
 	protected void setbgm() {
 		if(closeBGM){
 			remove(BGM);
 			add(BGM2);
+			PlayBGM.CloseVolume();
 		}
 		else{
 			remove(BGM2);
 			add(BGM);
+			PlayBGM.OpenVolume();
 		}
 		this.revalidate();
 		this.repaint();

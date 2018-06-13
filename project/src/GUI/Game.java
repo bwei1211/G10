@@ -24,6 +24,10 @@ import javax.swing.JPanel;
 import data.Savedata;
 
 public class Game extends JPanel implements MouseListener,MouseMotionListener, ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int x,y,go=0,turn=0;
 	int i,j;
 	Color color = Color.BLACK;
@@ -49,12 +53,12 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	JLabel win_message = new JLabel();
 	JPanel winpan = new JPanel();
 	
-	Font winfont = new Font(Font.SANS_SERIF, Font.PLAIN, 40);
+	Font winfont = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
 	
 	JPanel p1 = new JPanel();
 	JPanel p2 = new JPanel();
-	ImageIcon chessgod = new ImageIcon("resources/image/chessgod.png");
-	ImageIcon alphago = new ImageIcon("resources/image/alphago.jpg");
+	ImageIcon chessgod = new ImageIcon(getClass().getResource("/images/chessgod.png"));
+	ImageIcon alphago = new ImageIcon(getClass().getResource("/images/alphago.jpg"));
 	JLabel player1 = new JLabel(chessgod);
 	JLabel player2;
 	
@@ -179,6 +183,10 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	}
 	
 	public class Locate extends JPanel implements MouseListener {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		int x,y;
 		Chess temp = null;
 		//Chess count[] = new Chess[400];
@@ -342,6 +350,10 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 	}
 	
 	class Chess extends JPanel {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		Color color;
 		
 		public Chess(Color color){
@@ -366,6 +378,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			for(i=0;i<4;i++) {
 				win = Check(x,y,1,i);
 				if(win>=5) {
+					//win_message.setText(name1+" win!");
 					JOptionPane.showMessageDialog(null,"黑子勝利","訊息",JOptionPane.INFORMATION_MESSAGE);
 					over = 1;
 					sd = new Savedata(name1, name2);
@@ -377,6 +390,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 			for(i=0;i<4;i++) {
 				win = Check(x,y,-1,i);
 				if(win>=5) {
+					//win_message.setText(name2+" win!");
 					JOptionPane.showMessageDialog(null,"白子勝利","訊息",JOptionPane.INFORMATION_MESSAGE);
 					sd = new Savedata(name2, name1);
 					over = 1;

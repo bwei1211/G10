@@ -1,8 +1,5 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -11,15 +8,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Rank;
@@ -33,25 +26,25 @@ public class Start extends Thread {
 	GridBagConstraints gb = new GridBagConstraints();
 	
 	//Icon st = new ImageIcon(Start.class.getResource("start.png"));
-	//static JButton start = new JButton("開始遊戲");
-	JButton end = new JButton("�����C��");
+	//JButton start = new JButton("開始遊戲");
+	//JButton end = new JButton("結束遊戲");
 	
 	Game game;// = new Game();
 	
 	BufferedImage bg;
-	ImageIcon background = new ImageIcon("resources/image/background.png");
+	ImageIcon background = new ImageIcon(getClass().getResource("/images/background.png"));
 	JLabel BG;
 	JPanel BB = new JPanel();
 	
 	JLabel start;
-	ImageIcon Bstart = new ImageIcon("resources/image/start2.png");
+	ImageIcon Bstart = new ImageIcon(getClass().getResource("/images/start2.png"));
 	JLabel option;
-	ImageIcon Boption = new ImageIcon("resources/image/option2.png");
+	ImageIcon Boption = new ImageIcon(getClass().getResource("/images/option2.png"));
 	
 	Image IMG,IMG2,IMG3;
 	
 	JLabel rk;
-	ImageIcon Brank = new ImageIcon("resources/image/rank.png");
+	ImageIcon Brank = new ImageIcon(getClass().getResource("/images/rank.png"));
 	Rank rank = new Rank();
 	
 	Option op = new Option();
@@ -60,7 +53,7 @@ public class Start extends Thread {
 		JFrame app = new JFrame();
 		app.setSize(width, height);
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		app.setTitle("123");
+		app.setTitle("五子棋");
 		app.setResizable(false);  //關閉調整大小
 		app.setLocationRelativeTo(null);  //將視窗設置到正中央
 		app.setLayout(null);
@@ -87,11 +80,11 @@ public class Start extends Thread {
 			}
 		});*/
 		
-		end.addActionListener(new ActionListener() {
+		/*end.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
-		});
+		});*/
 		
 		BB.addMouseListener(new MouseListener() {
 
@@ -197,7 +190,13 @@ public class Start extends Thread {
 					public void mouseExited(MouseEvent e) {
 					}
 					public void mousePressed(MouseEvent e) {
-						if(op.player1==""||op.player2=="") {
+						op.player1 = op.p1.getText();
+						op.player2 = op.p2.getText();
+						if(op.player1.length()==0||op.player2.length()==0) {
+							JOptionPane.showMessageDialog(null,"請輸入玩者名稱","提示", JOptionPane.WARNING_MESSAGE);
+						}
+						else if(op.player1.equals(op.player2)){
+							JOptionPane.showMessageDialog(null,"請輸入不同的玩者名稱","提示", JOptionPane.WARNING_MESSAGE);
 						}
 						else {
 							app.remove(op);

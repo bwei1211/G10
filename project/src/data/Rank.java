@@ -1,21 +1,21 @@
 package data;
 
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.FlowLayout;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Rank extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JLabel rank1[] = new JLabel[10];
 	JLabel rank2[] = new JLabel[10];
 	JLabel rank3[] = new JLabel[10];
@@ -62,10 +62,10 @@ public class Rank extends JPanel {
 			
 			String str=new String();
 			
-			A.setText("±Æ¦W");
-			B.setText("ª±®a");
-			C.setText("³Ó    ±Ñ");
-			D.setText("³Ó²v");
+			A.setText("åæ¬¡");
+			B.setText("ç©å®¶");
+			C.setText("å‹    æ•—");
+			D.setText("å‹ç‡");
 			
 			A.setBounds(15, 0, 30, 40);
 			B.setBounds(60, 0, 70, 40);

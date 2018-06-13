@@ -33,7 +33,9 @@ public class Savedata {
 			rs.next();
 			
 			PreparedStatement Pstmt;
+			PreparedStatement Pstmt2;
 			ResultSet getID;
+			ResultSet getID2;
 			ResultSet getData;
 			
 			if(rs.getInt(1)==0){
@@ -92,19 +94,19 @@ public class Savedata {
 				Pstmt.executeUpdate();
 			}
 			else{
-				getID = stmt.executeQuery("select playerID from players_table where playername = '"+name2+"' limit 1");
-				getID.next();
-				tempID = getID.getInt(1);
+				getID2 = stmt.executeQuery("select playerID from players_table where playername = '"+name2+"' limit 1");
+				getID2.next();
+				tempID = getID2.getInt(1);
 				
 				getData = stmt.executeQuery("select win, lose from game_data where playerID = "+getID.getInt(1)+" limit 1");
 				getData.next();
 				
-				Pstmt = conn.prepareStatement("UPDATE game_data SET win = ?, lose = ?, winrate = ? WHERE playerID = ?");
-				Pstmt.setInt(1,getData.getInt(1));
-				Pstmt.setInt(2,getData.getInt(2)+1);
-				Pstmt.setFloat(3,(float) (getData.getInt(1)/(float) (getData.getInt(1)+getData.getInt(2)+1)));
-				Pstmt.setInt(4,tempID);
-				Pstmt.execute();
+				Pstmt2 = conn.prepareStatement("UPDATE game_data SET win = ?, lose = ?, winrate = ? WHERE playerID = ?");
+				Pstmt2.setInt(1,getData.getInt(1));
+				Pstmt2.setInt(2,getData.getInt(2)+1);
+				Pstmt2.setFloat(3,(float) (getData.getInt(1)/(float) (getData.getInt(1)+getData.getInt(2)+1)));
+				Pstmt2.setInt(4,tempID);
+				Pstmt2.execute();
 			}
 
 		} catch (SQLException ex) {
