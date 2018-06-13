@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class Savedata {
 	
-	String n1,n2;
+	static String n1,n2;
 	int tempID;
 	
 	public Savedata(String name1, String name2) {

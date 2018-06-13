@@ -98,7 +98,7 @@ public class Start extends Thread {
 				
 			}
 			public void mousePressed(MouseEvent e) {
-				System.out.print(e.getX()+","+e.getY()+"\n");
+				//System.out.print(e.getX()+","+e.getY()+"\n");
 			}
 			public void mouseReleased(MouseEvent e) {
 				

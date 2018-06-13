@@ -1,6 +1,7 @@
 package sound;
 
 import java.io.File;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -16,7 +17,8 @@ public class PlayBGM extends Thread {
 
 		// System.out.println(System.getProperty("user.dir"));
 
-		File bgm = new File("src/sounds/Wii-Mii_Theme.wav");
+		//File bgm = new File("src/sounds/Wii-Mii_Theme.wav");
+		URL bgm = getClass().getResource("/sounds/Wii-Mii_Theme.wav");
 		
 		Clip BGM = null;
 		try {

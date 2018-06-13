@@ -381,6 +381,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 					//win_message.setText(name1+" win!");
 					JOptionPane.showMessageDialog(null,"黑子勝利","訊息",JOptionPane.INFORMATION_MESSAGE);
 					over = 1;
+					sd = null;
 					sd = new Savedata(name1, name2);
 					break;
 				}
@@ -392,6 +393,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener, A
 				if(win>=5) {
 					//win_message.setText(name2+" win!");
 					JOptionPane.showMessageDialog(null,"白子勝利","訊息",JOptionPane.INFORMATION_MESSAGE);
+					sd = null;
 					sd = new Savedata(name2, name1);
 					over = 1;
 					break;
