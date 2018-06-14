@@ -9,12 +9,9 @@ import java.sql.Statement;
 
 public class Savedata {
 	
-	static String n1,n2;
 	int tempID;
 	
 	public Savedata(String name1, String name2) {
-		n1 = name1;
-		n2 = name2;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -28,15 +25,15 @@ public class Savedata {
 					"jdbc:mysql://localhost/g10?user=root&password=0000&serverTimezone=UTC&useSSL=false");
 			
 			Statement stmt = conn.createStatement();
+			ResultSet getID;
+			ResultSet getID2;
+			ResultSet getData;
 			
 			ResultSet rs = stmt.executeQuery("select count(*) from players_table where playername = '"+name1+"'");
 			rs.next();
 			
 			PreparedStatement Pstmt;
 			PreparedStatement Pstmt2;
-			ResultSet getID;
-			ResultSet getID2;
-			ResultSet getData;
 			
 			if(rs.getInt(1)==0){
 				getID = stmt.executeQuery("select * from players_table order by playerID desc limit 1;");
@@ -61,7 +58,7 @@ public class Savedata {
 				getID.next();
 				tempID = getID.getInt(1);
 				
-				getData = stmt.executeQuery("select win, lose from game_data where playerID = "+getID.getInt(1)+" limit 1");
+				getData = stmt.executeQuery("select win, lose from game_data where playerID = "+tempID+" limit 1");
 				getData.next();
 				
 				Pstmt = conn.prepareStatement("UPDATE game_data SET win = ?, lose = ?, winrate = ? WHERE playerID = ?");
@@ -98,7 +95,7 @@ public class Savedata {
 				getID2.next();
 				tempID = getID2.getInt(1);
 				
-				getData = stmt.executeQuery("select win, lose from game_data where playerID = "+getID.getInt(1)+" limit 1");
+				getData = stmt.executeQuery("select win, lose from game_data where playerID = "+tempID+" limit 1");
 				getData.next();
 				
 				Pstmt2 = conn.prepareStatement("UPDATE game_data SET win = ?, lose = ?, winrate = ? WHERE playerID = ?");
